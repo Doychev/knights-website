@@ -343,8 +343,30 @@
 			var timeinterval = setInterval(updateClock, 1000);
 		}
 
-		var deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
-		initializeClock('clockdiv', deadline);
+		function getNextMonday(date = new Date()) {
+			const dateCopy = new Date(date.getTime());
+			const nextMonday = new Date(
+				dateCopy.setDate(
+				dateCopy.getDate() + ((7 - dateCopy.getDay() + 1) % 7 || 7),
+				),
+			);
+			return nextMonday;
+		}
+
+		function getNextWednesday(date = new Date()) {
+			const dateCopy = new Date(date.getTime());
+			const nextFriday = new Date(
+			  dateCopy.setDate(
+				dateCopy.getDate() + ((7 - dateCopy.getDay() + 3) % 7 || 7),
+			  ),
+			);
+			return nextFriday;
+		}
+
+		//get the next closest monday or wednesday
+		var earliest = new Date(Math.min.apply(null, [getNextMonday(), getNextWednesday()]));
+		earliest.setHours(20, 30, 0);
+		initializeClock('clockdiv', earliest);
 	}
 
 	/* -------------------- ISOTOPE ------------------- */
