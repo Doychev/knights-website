@@ -345,22 +345,40 @@
 
 		function getNextMonday(date = new Date()) {
 			const dateCopy = new Date(date.getTime());
-			const nextMonday = new Date(
+			const currentDay = dateCopy.getDay();
+			const currentHour = dateCopy.getHours();
+			const currentMinute = dateCopy.getMinutes();
+
+			// If it's Monday (1) and practice hasn't started yet
+			if (currentDay === 1 && (currentHour < 20 || (currentHour === 20 && currentMinute < 30))) {
+				return dateCopy; // Return today
+			}
+
+			// Otherwise calculate next Monday
+			return new Date(
 				dateCopy.setDate(
-				dateCopy.getDate() + ((7 - dateCopy.getDay() + 1) % 7 || 7),
+					dateCopy.getDate() + ((7 - dateCopy.getDay() + 1) % 7 || 7),
 				),
 			);
-			return nextMonday;
 		}
 
 		function getNextWednesday(date = new Date()) {
 			const dateCopy = new Date(date.getTime());
-			const nextFriday = new Date(
-			  dateCopy.setDate(
-				dateCopy.getDate() + ((7 - dateCopy.getDay() + 3) % 7 || 7),
-			  ),
+			const currentDay = dateCopy.getDay();
+			const currentHour = dateCopy.getHours();
+			const currentMinute = dateCopy.getMinutes();
+
+			// If it's Wednesday (3) and practice hasn't started yet
+			if (currentDay === 3 && (currentHour < 20 || (currentHour === 20 && currentMinute < 30))) {
+				return dateCopy; // Return today
+			}
+
+			// Otherwise calculate next Wednesday
+			return new Date(
+				dateCopy.setDate(
+					dateCopy.getDate() + ((7 - dateCopy.getDay() + 3) % 7 || 7),
+				),
 			);
-			return nextFriday;
 		}
 
 		//get the next closest monday or wednesday
